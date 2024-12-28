@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose, AiFillTag } from 'react-icons/ai'
 import { BsFillCartFill, BsFillSaveFill } from 'react-icons/bs'
 import { TbTruckDelivery } from 'react-icons/tb'
@@ -9,6 +9,25 @@ import { BsFillPatchExclamationFill } from 'react-icons/bs';
 const Navbar = () => {
 
   const [nav, setNav] = useState(false)
+  const sidebarRef = useRef(null);
+
+  const handleOutsideClick = (e) => {
+    if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+      setNav(false);
+    }
+  };
+
+  useEffect(() => {
+    if (nav) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [nav]);
+
   return (
     <div className='flex justify-between items-center p-4 max-w-[1640px] mx-auto'>
       {/*Left Container*/}
@@ -41,7 +60,7 @@ const Navbar = () => {
 
 
       {/*Side drawer menu*/}
-      <div className={nav ? 'fixed top-0 left-0 w-[300px] h-screen bg-white z-10 duration-300' : 'fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-1000'}>
+      <div ref={sidebarRef} className={nav ? 'fixed top-0 left-0 w-[300px] h-screen bg-white z-10 transform duration-300 translate-x-0' : '-translate-x-full fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-1000'}>
         <AiOutlineClose onClick={() => setNav(!nav)} size={30} className='absolute right-4 top-4 cursor-pointer' />
         <h2 className='text-3xl p-3 font-semibold'>
           Burger <span className='mr-2 text-orange-500'>Buddy</span>
