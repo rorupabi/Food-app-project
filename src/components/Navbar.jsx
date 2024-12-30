@@ -36,11 +36,13 @@ const Navbar = () => {
           <AiOutlineMenu size={30} />
         </div>
 
-        <h1 className='texl-2xl sm:text-3xl lg:text-4xl px-2'>
-          Burger <span className='font-bold text-orange-500'>Buddy</span></h1>
+        <div className='mr-4'>
+          <h1 className='texl-2xl sm:text-3xl lg:text-4xl px-2'>
+            Burger <span className='font-bold text-orange-500'>Buddy</span></h1>
+        </div>
         <div className='items-center bg-gray-200 rounded-xl p-[0.5px] text-[14px] hidden xl:flex lg:flex'>
-          <p className='bg-black text-white rounded-full p-2'>Delivery</p>
-          <p className='p-2'>Pickup</p>
+          <button className='bg-black text-white rounded-full p-2'>Delivery</button>
+          <button className='p-2 border-none'>Pickup</button>
         </div>
       </div>
 
